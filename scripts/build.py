@@ -414,7 +414,7 @@ def build_style(family, bordered):
         "search.match_background": g["search"],
         "search.active_match_background": g["search_active"],
         "panel.background": bg["shell"],
-        "panel.focused_border": p["accent"] if bordered else TRANSPARENT,
+        "panel.focused_border": TRANSPARENT,
         "panel.indent_guide": g["indent"],
         "panel.indent_guide_active": g["indent_active"],
         "panel.indent_guide_hover": g["indent_active"],
