@@ -347,6 +347,19 @@ def build_syntax(p, git):
     return dict(sorted(syntax.items()))
 
 
+
+def visible_invisible(fg, selection, editor_bg):
+    """Compute editor.invisible so whitespace dots stay clearly legible over selected text."""
+    def _mix(a, t, b):
+        ca = [int(a[i : i + 2], 16) for i in (1, 3, 5)]
+        cb = [int(b[i : i + 2], 16) for i in (1, 3, 5)]
+        return "#" + "".join(f"{round(x * t + y * (1 - t)):02x}" for x, y in zip(ca, cb))
+    sel = selection or editor_bg
+    if len(sel) == 9:
+        sel = _mix(sel[:7], int(sel[7:9], 16) / 255, editor_bg[:7])
+    return _mix(fg[:7], 0.52 if int(editor_bg[1:3], 16) > 128 else 0.42, sel[:7])
+
+
 def build_style(family, bordered):
     bg = family["bordered" if bordered else "unbordered"]
     g = family["guides"]
@@ -426,7 +439,7 @@ def build_style(family, bordered):
         "editor.line_number": p["line_number"],
         "editor.active_line_number": p["fg"],
         "editor.hover_line_number": p["fg"],
-        "editor.invisible": g["invisible"],
+        "editor.invisible": visible_invisible(p["fg"], bg["selection"], bg["editor"]),
         "editor.wrap_guide": g["wrap"],
         "editor.active_wrap_guide": g["wrap_active"],
         "editor.indent_guide": g["indent"],
