@@ -1,0 +1,7 @@
+id = "ayu-custom-theme"
+name = "Ayu Custom Theme"
+version = "1.0.0"
+schema_version = 1
+authors = ["Dallas Gere"]
+description = "Ayu Dark, Mirage, and Light themes for Zed (both borderless and bordered), with toned-down contrast and harmonized git colors."
+repository = "https://github.com/dallasgere/ayu-custom-theme"
